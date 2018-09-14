@@ -10,11 +10,14 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
  
 public class GetDocumentFromURL{
+	
 	private static final String MAIN_URL = "http://www.terrakot18.ru/yarnlist";
 	private static final String ALL_LINKS = "a[_mce_href]";
 	private static Elements all_tables;
 	private static ArrayList<String> listProducer = new ArrayList<String>(); // список ссылок на всех производителей пряжи
+	
 	public static void main(String[] args) throws IOException	{
+		
 		Document jsDoc = null;
 		jsDoc = Jsoup.connect(MAIN_URL).get();
 		all_tables = jsDoc.select("table[class=mceItemTable]");
