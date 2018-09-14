@@ -3,6 +3,7 @@
 import java.io.IOException;
 //import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -21,37 +22,47 @@ public class GetDocumentFromURL{
 		Document jsDoc = null;
 		jsDoc = Jsoup.connect(MAIN_URL).get();
 		all_tables = jsDoc.select("table[class=mceItemTable]");
+		
 		for (Element table : all_tables){	// проходимся по всем таблицам
 			Elements alllinks = table.select(ALL_LINKS);
 
-	        String[] translationLinks = getTranslationLinks(alllinks);
+	        getTranslationLinks(alllinks, listProducer);
 
-	        for (String tLink : translationLinks) {
-	           System.out.println(tLink);
-	        }
+	        //for (String tLink : translationLinks) {
+	        //   System.out.println(tLink);
+	        //}
 		}
 		//-----------------------------------------------------------
 		// теперь нужно проверить на дублирование ссылок listProducer
+		for(int i=0; i<listProducer.size(); i++)
+		{
 		//listProducer.get(0);
-		//int count = Collections.frequency(cats, "Мурзик"); // получим результат 2 сколько раз совпадают
+			while( Collections.frequency(listProducer, listProducer.get(i))>1) // получим результат 2 сколько раз совпадают
+			{
+				listProducer.remove(i);
+			}
+		}
 		//-----------------------------------------------------------
-/*      //Document doc = Jsoup.connect("http://www.terrakot18.ru/yarnlist").get();
+		// вывод списка
+		for (String tLink : listProducer) {
+			System.out.println(tLink);
+	    }
+		//-----------------------------------------------------------
+		
+/*      //-----------------------------------------------------------
+		//Document doc = Jsoup.connect("http://www.terrakot18.ru/yarnlist").get();
 		//File input = new File("C:\\temp\\terrakot18.htm");
 		//Document doc = Jsoup.parse(input,"UTF-8");
 		//Elements tables = doc.select("table[class=mceItemTable]");
    	}*/
  
 	}
-	 public static String[] getTranslationLinks(Elements alllinks){
-	      String[] items = new String[alllinks.size()];
-	      Element tempelement;
-	      for(int i = 0;i<items.length;i++){
-	          tempelement = alllinks.get(i);
-
-	          items[i] = tempelement.attr("abs:_mce_href");
-	          listProducer.add(items[i]);
+	 public static void getTranslationLinks(Elements alllinks, ArrayList<String> arrList){
+	      String items;
+	      for(int i = 0;i<alllinks.size();i++){
+	          items = alllinks.get(i).attr("abs:_mce_href");// abs формирует абсолютный адрес а не относительный
+	          arrList.add(items);
 	      }
-	      return items;
 	  }
 }
  
