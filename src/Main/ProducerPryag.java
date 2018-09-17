@@ -13,7 +13,7 @@ public class ProducerPryag {
 	String Name;	// имя производителя пряжи
 	String Link;	// ссылка на страницу с пряжей данного производителя
 	// ссылка на картинку
-	static ArrayList<Pryaga>	listPryaga = new ArrayList<Pryaga>(); // список пряжи у производителя
+	ArrayList<Pryaga>	listPryaga = new ArrayList<Pryaga>(); // список пряжи у производителя
 	
 	public void UpdateBase(float Rate) throws IOException{
 		Document jsDoc = null;
@@ -53,6 +53,9 @@ public class ProducerPryag {
 				
 				iPryaga.sellingPricePackage= (float) Math.ceil(iPryaga.priceBasePackage*((float)1.0+Rate/(float)100.0));
 				iPryaga.profitPackage = iPryaga.sellingPricePackage - iPryaga.priceBasePackage;
+				
+				iPryaga.UpdateBaseColors();
+				
 				listPryaga.add(iPryaga); // добавили пряжу в базу
 				
 				System.out.format("%-40s %-3d %-3d %-60s %-2d %8.2f %8.2f %8.2f %4.0f", iPryaga.Name, iPryaga.Weight, iPryaga.Lenght, iPryaga.Composition, iPryaga.packageCnt, iPryaga.priceBase, iPryaga.priceBasePackage, iPryaga.sellingPricePackage, iPryaga.profitPackage);
