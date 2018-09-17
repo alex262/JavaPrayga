@@ -1,8 +1,11 @@
 package Main;
 
+import java.util.ArrayList;
+
 public class Pryaga {
 
 		String	Name;		// Название пряжи
+		String	Link;		// ссылка на страницу с данной пряжей
 		int 	Weight;		// Вес
 		int 	Lenght;		// длина 
 		String	Composition;// состав пряжи
@@ -12,4 +15,23 @@ public class Pryaga {
 		float 	sellingPricePackage;// цена продажи упаковки конечная
 		float	profitPackage;// прибыль с пачки, надо учесть доставку	
 		// список цветов, ссылки на картинки цветов, кол-во каждого цвета на базе
+
 }
+/*
+url = new URL(links[i] + "jpg"); //Формирование url-адреса файла
+conn = url.openConnection();
+conn.setDoOutput(true);
+conn.setDoInput(true);
+
+BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+FileOutputStream fos = new FileOutputStream(new File(pathToSave + naming(i+1)));
+	
+int ch;
+while ((ch = bis.read())!=-1) 
+{
+	fos.write(ch);
+}
+bis.close();
+fos.flush();
+fos.close();
+*/

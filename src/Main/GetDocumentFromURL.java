@@ -53,48 +53,18 @@ public class GetDocumentFromURL{
 		//начинаем проход по производителям пряжи
 		for(int i=0; i<listProducer.size(); i++)
 		{
-			Element table;
-			Elements rows;
+			//Element table;
+			//Elements rows;
 			
 			//------------------------------------------
 			// Формируем базу производителей
 			ProducerPryag Producer = new ProducerPryag();
 			Producer.Link = listProducer.get(i);
+			Producer.UpdateBase(InterestRate); //формируем базу
 			//Producer.Name
 			listProducerPryag.add(Producer);
-			//------------------------------------------
-			jsDoc = Jsoup.connect(listProducer.get(i)).get();
-			table = jsDoc.select("table[class=query]").first();
-			rows = table.select("tr");
-			System.out.println(listProducer.get(i));
-			for (int j = 0; j < rows.size(); j++) {
-	            Element row = rows.get(j); 			//по номеру индекса получает строку
-	            Elements cols = row.select("td");	// разбиваем полученную строку по тегу  на столбы
-	            String[] strCol = new String[cols.size()];
-				for (int k = 0; k < cols.size(); k++) {
-					//парсим строку
-					strCol[k] = cols.get(k).text();
-					
-					System.out.print(strCol[k]+' ');// вывод в консоль n-ый столбец
-				}
-				if(j>0) { // в первой строке названия столбцов 
-					Pryaga iPryaga = new Pryaga();
-					iPryaga.Name		= strCol[0];
-					iPryaga.Weight		= Integer.parseInt(strCol[1]);	 
-					iPryaga.Lenght		= Integer.parseInt(strCol[2]);	 
-					iPryaga.Composition	= strCol[3];	 
-					iPryaga.packageCnt	= Integer.parseInt(strCol[4]);	 
-					iPryaga.priceBase	= Float.parseFloat(strCol[5]);
-					iPryaga.priceBasePackage= Float.parseFloat(strCol[6]);
-					
-					iPryaga.sellingPricePackage= (float) Math.ceil(iPryaga.priceBasePackage*((float)1.0+InterestRate/(float)100.0));
-					iPryaga.profitPackage = iPryaga.sellingPricePackage - iPryaga.priceBasePackage;
-					listProducerPryag.get(i).listPryaga.add(iPryaga); // добавили пряжу в базу
-				}
-				strCol = null;
-	            System.out.println();
-	        }	
-		}		
+		}
+		//============================================================
 /*      //-----------------------------------------------------------
 		//Document doc = Jsoup.connect("http://www.terrakot18.ru/yarnlist").get();
 		//File input = new File("C:\\temp\\terrakot18.htm");
