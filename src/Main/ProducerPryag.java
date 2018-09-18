@@ -22,7 +22,16 @@ public class ProducerPryag {
 		
 		listPryaga.clear(); // очищаем если повторный вызов
 		
-		jsDoc = Jsoup.connect(Link).get();
+		try {
+			jsDoc = Jsoup.connect(Link).get();
+		}catch(IOException e)
+		{
+			e.printStackTrace();
+			return;
+		}
+		
+		table = jsDoc.select("a[_mce_href=\"#\"]").first();
+		
 		table = jsDoc.select("table[class=query]").first();
 		//-------------------------------------------------
 		// вытаскиваемм ссылки на каждую пряжу

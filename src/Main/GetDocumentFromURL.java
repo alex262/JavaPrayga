@@ -25,7 +25,16 @@ public class GetDocumentFromURL{
 	public static void main(String[] args) throws IOException	{
 		
 		Document jsDoc = null;
-		jsDoc = Jsoup.connect(MAIN_URL).get();
+		try {
+			jsDoc = Jsoup.connect(MAIN_URL).get();
+		}catch(IOException e)
+		{
+			// сайт не доступен
+			e.printStackTrace();
+			return;
+		}
+		
+		
 		all_tables = jsDoc.select("table[class=mceItemTable]");
 		
 		for (Element table : all_tables){	// проходимся по всем таблицам
