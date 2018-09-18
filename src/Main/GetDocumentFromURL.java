@@ -13,10 +13,10 @@ import org.jsoup.select.Elements;
 public class GetDocumentFromURL{
 	
 	private static final String MAIN_URL = "http://www.terrakot18.ru/yarnlist";
-	private static final String ALL_LINKS = "a[_mce_href]";
+	//private static final String ALL_LINKS = "a[_mce_href]";
 	private static Elements all_tables;
-	private static ArrayList<String> listProducer = new ArrayList<String>(); // список ссылок на всех производителей пряжи
-	private static final float  InterestRate = (float) 30.0;
+	private static ArrayList<String> listProducer = new ArrayList<String>();	// список ссылок на всех производителей пряжи
+	private static final float  InterestRate = (float) 30.0;					// процент прибыли
 	///----------------------------------------------------------------------------------------
 	/// БАЗА 
 	private static ArrayList<ProducerPryag> listProducerPryag = new ArrayList<ProducerPryag>();
@@ -34,15 +34,15 @@ public class GetDocumentFromURL{
 			return;
 		}
 		
-		
 		all_tables = jsDoc.select("table[class=mceItemTable]");
 		
 		for (Element table : all_tables){	// проходимся по всем таблицам
-			Elements alllinks = table.select(ALL_LINKS);
+			Elements alllinks = table.select("a[_mce_href]");
 
 	        getTranslationLinks(alllinks, listProducer);
 
 		}
+		
 		//-----------------------------------------------------------
 		// теперь нужно проверить на дублирование ссылок listProducer
 		for(int i=0; i<listProducer.size(); i++)
@@ -55,9 +55,9 @@ public class GetDocumentFromURL{
 		}
 		//-----------------------------------------------------------
 		// вывод ссылок на страницы производителей
-		for (String tLink : listProducer) {
-			System.out.println(tLink);// вывод ссылок на страницы производителей
-	    }
+		//for (String tLink : listProducer) {
+		//	System.out.println(tLink);// вывод ссылок на страницы производителей
+	    //}
 		//-----------------------------------------------------------
 		//начинаем проход по производителям пряжи
 		for(int i=0; i<listProducer.size(); i++)
@@ -67,10 +67,15 @@ public class GetDocumentFromURL{
 			
 			//------------------------------------------
 			// Формируем базу производителей
+			//brand=XXXXX&
+			int i1, i2;
 			ProducerPryag Producer = new ProducerPryag();
 			Producer.Link = listProducer.get(i);
+			i1 = Producer.Link.indexOf('=');
+			i2 = Producer.Link.indexOf('&');
+			Producer.Name = Producer.Link.substring(i1+1, i2);
 			Producer.UpdateBase(InterestRate); //формируем базу
-			//Producer.Name
+
 			listProducerPryag.add(Producer);
 		}
 		//============================================================
@@ -80,7 +85,7 @@ public class GetDocumentFromURL{
 		//Document doc = Jsoup.parse(input,"UTF-8");
 		//Elements tables = doc.select("table[class=mceItemTable]");
    	}*/
- 
+		jsDoc = null;
 	}
 	 public static void getTranslationLinks(Elements alllinks, ArrayList<String> arrList){
 	      String items;

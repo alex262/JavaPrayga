@@ -10,9 +10,9 @@ import org.jsoup.select.Elements;
 
 public class ProducerPryag {
 	
-	String Name;	// имя производителя пряжи
-	String Link;	// ссылка на страницу с пряжей данного производителя
-	// ссылка на картинку
+	String Name;		// имя производителя пряжи
+	String Link;		// ссылка на страницу с пряжей данного производителя
+	String LinkImage;	// ссылка на лготип производителя
 	ArrayList<Pryaga>	listPryaga = new ArrayList<Pryaga>(); // список пряжи у производителя
 	
 	public void UpdateBase(float Rate) throws IOException{
@@ -38,7 +38,9 @@ public class ProducerPryag {
 		Elements alllinks = table.select("a[href]");
 		//-------------------------------------------------
 		rows = table.select("tr");
-		System.out.println(Link);
+		//System.out.println(Link);
+		System.out.println("*****************************************************************");
+		System.out.println(Name.toUpperCase());
 		for (int j = 0; j < rows.size(); j++) {
             Element row = rows.get(j); 			//по номеру индекса получает строку
             Elements cols = row.select("td");	// разбиваем полученную строку по тегу  на столбы
