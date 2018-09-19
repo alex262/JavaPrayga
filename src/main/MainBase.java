@@ -1,4 +1,4 @@
-package Main;
+package main;
 
 import java.io.IOException;
 //import java.io.File;
@@ -10,7 +10,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
  
-public class GetDocumentFromURL{
+public class MainBase{
 	
 	private static final String MAIN_URL = "http://www.terrakot18.ru/yarnlist";
 	//private static final String ALL_LINKS = "a[_mce_href]";
@@ -22,7 +22,9 @@ public class GetDocumentFromURL{
 	private static ArrayList<ProducerPryag> listProducerPryag = new ArrayList<ProducerPryag>();
 	///----------------------------------------------------------------------------------------
 	
-	public static void main(String[] args) throws IOException	{
+//	public static void main(String[] args) throws IOException	{
+	public void CreateBase() throws IOException{
+		
 		
 		Document jsDoc = null;
 		try {

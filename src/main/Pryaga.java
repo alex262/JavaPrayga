@@ -1,4 +1,4 @@
-package Main;
+package main;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,20 +49,20 @@ public class Pryaga {
 					String str;
 					iColor.Name= "";
 					iColor.Id  = 0;
-					//-----------------------------------------------------------------
-					// идиотская строка
-					// -----------------
-					// варианты
-					// 1. 10239, A-elita, 1, чёрный
-					// 2. Деревенька 2454 натуральный тёмный
-					// 3. Кроха С/К 4052
-					// 4. Кроха С/К 4061 белый-жёлтый-салат
-					// 5. Аргентинская Шерсть жемчужный
-					// 6. Аргентинская Шерсть коралл темный 
-					// 7. Чистая Шерсть 1331золото
-					// 8. Бамбук Стрейч отбелка 002
-					/*
-					str			= imgs.get(i).attr("title");
+					
+/*					-----------------------------------------------------------------
+					 идиотская строка
+					 -----------------
+					 варианты
+					 1. 10239, A-elita, 1, чёрный
+					 2. Деревенька 2454 натуральный тёмный
+					 3. Кроха С/К 4052
+					 4. Кроха С/К 4061 белый-жёлтый-салат
+					 5. Аргентинская Шерсть жемчужный
+					 6. Аргентинская Шерсть коралл темный 
+					 7. Чистая Шерсть 1331золото
+					 8. Бамбук Стрейч отбелка 002
+*//*				str			= imgs.get(i).attr("title");
 					String[] fields = str.split(",\\s*|\\s");
 					int n=fields.length;
 					int nDigit = 0;		
@@ -104,13 +104,13 @@ public class Pryaga {
 							}
 						}
 					}
-					*/
-					//iColor.Id	= Integer.parseInt(ps.get(i*2).text());	// так тоже работает// ни хрена не на всех страницах присутствует
-					//String[] fields = str.split("\\s*(\\s|,)\\s*");
-					//Pattern p = Pattern.compile("(\\d+)\\, (\\p{Alpha}+)\\, (\\d+)\\, (\\p{Alpha}+)");
-					//Pattern p = Pattern.compile(",\\s");
-					//Matcher m = p.matcher(str);
-					//-----------------------------------------------------------------
+*/
+//					iColor.Id	= Integer.parseInt(ps.get(i*2).text());	// так тоже работает// ни хрена не на всех страницах присутствует
+//					String[] fields = str.split("\\s*(\\s|,)\\s*");
+//					Pattern p = Pattern.compile("(\\d+)\\, (\\p{Alpha}+)\\, (\\d+)\\, (\\p{Alpha}+)");
+//					Pattern p = Pattern.compile(",\\s");
+//					Matcher m = p.matcher(str);
+//					-----------------------------------------------------------------
 					str 			= (ps.get(i*2+1).text()).replaceAll("\\D+", "");
 					iColor.Ostatok	= Integer.parseInt(str);// достаем остаток
 					str 			= ps.get(i*2).text();
