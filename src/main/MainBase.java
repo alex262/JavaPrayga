@@ -4,6 +4,10 @@ import java.io.IOException;
 //import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Vector;
+
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -23,7 +27,7 @@ public class MainBase{
 	///----------------------------------------------------------------------------------------
 	
 //	public static void main(String[] args) throws IOException	{
-	public void CreateBase() throws IOException{
+	public void CreateBase(JTable tableMain) throws IOException{
 		
 		
 		Document jsDoc = null;
@@ -62,6 +66,8 @@ public class MainBase{
 	    //}
 		//-----------------------------------------------------------
 		//начинаем проход по производителям пряжи
+		DefaultTableModel model = (DefaultTableModel) tableMain.getModel();
+		int PosP=0, NumPak=0;
 		for(int i=0; i<listProducer.size(); i++)
 		{
 			//Element table;
@@ -79,7 +85,32 @@ public class MainBase{
 			Producer.UpdateBase(InterestRate); //формируем базу
 
 			listProducerPryag.add(Producer);
+			for(int j=0; j<Producer.listPryaga.size(); j++)
+			{
+				for(int k=0; k<Producer.listPryaga.get(j).listColorsAvail.size(); k++)
+				{
+					Vector <String> v = new Vector<String>(Producer.listPryaga.size());
+					v.add(Integer.toString(PosP++));
+					v.add(Producer.Name);
+					v.add(Producer.listPryaga.get(j).Name);
+					v.add(Integer.toString(Producer.listPryaga.get(j).listColorsAvail.get(k).Id));
+					v.add(Integer.toString(Producer.listPryaga.get(j).listColorsAvail.get(k).Ostatok));
+					NumPak+=Producer.listPryaga.get(j).listColorsAvail.get(k).Ostatok;
+					v.add(Float.toString(Producer.listPryaga.get(j).priceBasePackage));
+					
+					model.addRow(v);
+				}
+			}
 		}
+		Vector <String> v = new Vector<String>(6);
+		v.add("");
+		v.add("");
+		v.add("");
+		v.add("");
+		v.add(Integer.toString(NumPak));
+		v.add("");
+		
+		model.addRow(v);
 		//============================================================
 /*      //-----------------------------------------------------------
 		//Document doc = Jsoup.connect("http://www.terrakot18.ru/yarnlist").get();
