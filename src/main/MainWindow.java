@@ -22,6 +22,10 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class MainWindow {
 
@@ -143,8 +147,29 @@ public class MainWindow {
 		));
 		tableBase.getColumnModel().getColumn(5).setMaxWidth(2147483592);
 		scrollPane.setViewportView(tableBase);
+		//------------------------------------------------------------------------------------
+		JButton btnConnectbase = new JButton("ConnectBase");
+		btnConnectbase.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0)  {
+				Connection connection;
+				try {
+					// Get Connection
+					connection = ConnectionUtils.getMyConnection();
+					//---------------------------------------------
+					
+					//---------------------------------------------
+					// Close connection.
+					connection.close();
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		btnConnectbase.setBounds(702, 535, 115, 23);
+		frame.getContentPane().add(btnConnectbase);
 		
-		
+		//------------------------------------------------------------------------------------
 		//Vector <String> v = new Vector<String>(4);
 		//----------------------------------------------------
 		lblLoadText.setVisible(false);
